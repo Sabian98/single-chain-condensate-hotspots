@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Minimal ACS-like numeric style for the Word export: superscript numbers in the text, numbered list with every author in full
+     (no et al.), journal abbreviation in italics, bold year, volume in italics, page range. -->
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only">
+  <info>
+    <title>ACS numeric (manuscript export)</title>
+    <id>acs-numeric-local</id>
+    <updated>2026-11-14T00:00:00+00:00</updated>
+  </info>
+  <macro name="author">
+    <names variable="author">
+      <name initialize-with=". " name-as-sort-order="all" sort-separator=", " delimiter="; " delimiter-precedes-last="always"/>
+    </names>
+  </macro>
+  <citation collapse="citation-number">
+    <sort><key variable="citation-number"/></sort>
+    <layout vertical-align="sup" delimiter=",">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+  <bibliography second-field-align="flush" entry-spacing="0">
+    <layout suffix=".">
+      <text variable="citation-number" prefix="(" suffix=") "/>
+      <text macro="author" suffix=" "/>
+      <text variable="title" suffix=". "/>
+      <choose>
+        <if type="article-journal">
+          <group delimiter=" ">
+            <text variable="container-title" form="short" font-style="italic"/>
+            <group delimiter=", ">
+              <date variable="issued" font-weight="bold"><date-part name="year"/></date>
+              <text variable="volume" font-style="italic"/>
+              <text variable="page"/>
+            </group>
+          </group>
+          <text variable="note" prefix=", "/>
+          <text variable="DOI" prefix=". DOI: "/>
+        </if>
+        <else>
+          <group delimiter=", ">
+            <text variable="container-title" font-style="italic"/>
+            <text variable="publisher"/>
+            <date variable="issued"><date-part name="year"/></date>
+          </group>
+          <text variable="DOI" prefix=". DOI: "/>
+        </else>
+      </choose>
+    </layout>
+  </bibliography>
+</style>
